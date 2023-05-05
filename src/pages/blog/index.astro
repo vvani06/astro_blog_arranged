@@ -16,21 +16,7 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			ul {
-				list-style-type: none;
-				padding: unset;
-			}
-			ul li {
-				display: flex;
-			}
-			ul li :global(time) {
-				flex: 0 0 130px;
-				font-style: italic;
-				color: #595959;
-			}
-			ul li a:visited {
-				color: #8e32dc;
-			}
+
 		</style>
 	</head>
 	<body>
@@ -41,8 +27,11 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<li>
-								<FormattedDate date={post.data.pubDate} />
 								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+								<br/>
+								<FormattedDate date={post.data.pubDate} />
+								<br/>
+								<a href={`/author/${post.data.author}/`}>{post.data.author}</a>
 							</li>
 						))
 					}

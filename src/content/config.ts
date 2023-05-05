@@ -15,7 +15,17 @@ const blog = defineCollection({
 			.optional()
 			.transform((str) => (str ? new Date(str) : undefined)),
 		heroImage: z.string().optional(),
+		author: z.string().optional(),
 	}),
 });
 
-export const collections = { blog };
+const author = defineCollection({
+	// Type-check frontmatter using a schema
+	schema: z.object({
+		name: z.string(),
+		description: z.string(),
+		image: z.string(),
+	}),
+});
+
+export const collections = { blog, author };
