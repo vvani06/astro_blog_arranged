@@ -18,7 +18,7 @@ const category = Astro.props;
 
 const posts = (await getCollection('blog'))
 	.filter(post => category.slug === post.data.category)
-	.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!DOCTYPE html>
@@ -46,10 +46,9 @@ const posts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main>
-			<h1>{category.data.name}</h1>
+			<h1>カテゴリ: {category.data.name} の記事一覧</h1>
 			{category.data.image && <img width={120} height={120} src={category.data.image} alt="" />}
 			<p>{category.data.description}</p>
-			<h2>カテゴリ: {category.data.name} の記事一覧</h2>
 			<section>
 				<ul>
 					{

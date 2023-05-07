@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = CollectionEntry<'blog'>;
+
+const { slug } = Astro.props;
+const article = Astro.props.data;
+const category = (await getCollection('category')).find(category => category.slug === article.category);
+const author = (await getCollection('author')).find(author => author.slug === article.author);
+---
+
+<div>
+  <h3>
+    <a href=`/blog/${slug}`>{article.title}</a>
+  </h3>
+  <p>
+    { article.pubDate }
+    { article.updatedDate && <>更新: {article.updatedDate}</> }
+  </p>
+  <p>
+    { author && <>書いた人: <a href=`/author/${author.slug}`>{author.data.name}</a></> }
+    { category && <>カテゴリ: <a href=`/category/${category.slug}`>{category.data.name}</a></> }
+  </p>
+</div>
