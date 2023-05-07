@@ -19,7 +19,7 @@ const author = (await getCollection('author')).find(author => author.slug === ar
     { article.updatedDate && <>更新: {article.updatedDate}</> }
   </p>
   <p>
-    { author && <>書いた人: <a href=`/author/${author.slug}`>{author.data.name}</a></> }
-    { category && <>カテゴリ: <a href=`/category/${category.slug}`>{category.data.name}</a></> }
+    { author && <>書いた人: <a href={`/author/${author.slug}`}>{author.data.name}</a></> }
+    { category && <>カテゴリ: <a href={`/category/${category.slug}`}>{category.data.name}</a></> }
   </p>
 </div>

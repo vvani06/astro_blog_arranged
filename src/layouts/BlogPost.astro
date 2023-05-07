@@ -1,53 +1,31 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, author, category } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author: authorSlug, category: categorySlug } = Astro.props;
+const category = (await getCollection('category')).find(category => category.slug === categorySlug);
+const author = (await getCollection('author')).find(author => author.slug === authorSlug);
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			.title {
-				font-size: 2em;
-				margin: 0.25em 0 0;
-			}
-			hr {
-				border-top: 1px solid #ddd;
-				margin: 1rem 0;
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
-
-	<body>
-		<Header />
-		<main>
-			<article>
-				{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-				<h1 class="title">{title}</h1>
-				<FormattedDate date={pubDate} />
-				{
-					updatedDate && (
-						<div class="last-updated-on">
-							Last updated on <FormattedDate date={updatedDate} />
-						</div>
-					)
-				}
-				{author && <p>書いた人: <a href={`/author/${author}`}>{author}</a></p>}
-				{category && <p>カテゴリ: <a href={`/category/${category}`}>{category}</a></p>}
-				<hr />
-				<slot />
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout>
+	<article>
+		{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
+		<h1 class="text-2xl font-black">{title}</h1>
+		<FormattedDate date={pubDate} />
+		{
+			updatedDate && (
+				<div class="last-updated-on">
+					Last updated on <FormattedDate date={updatedDate} />
+				</div>
+			)
+		}
+		{author && <p>書いた人: <a href={`/author/${authorSlug}`}>{author.data.name}</a></p>}
+		{category && <p>カテゴリ: <a href={`/category/${categorySlug}`}>{category.data.name}</a></p>}
+		<hr />
+		<slot />
+	</article>
+</BaseLayout>
