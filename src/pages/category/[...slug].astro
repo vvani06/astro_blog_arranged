@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 
 export async function getStaticPaths() {
 	const categories = await getCollection('category');
@@ -23,15 +23,10 @@ const posts = (await getCollection('blog'))
 	{category.data.image && <img width={120} height={120} src={category.data.image} alt="" />}
 	<p>{category.data.description}</p>
 	<section>
-		<ul>
-			{
-				posts.map((post) => (
-					<li>
-						<FormattedDate date={post.data.pubDate} />
-						<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-					</li>
-				))
-			}
-		</ul>
+		{
+			posts.map((post) => (
+				<ArticleCard {...post} />
+			))
+		}
 	</section>
 </BaseLayout>

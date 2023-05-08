@@ -1,11 +1,7 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 
 export async function getStaticPaths() {
 	const authors = await getCollection('author');
@@ -28,15 +24,10 @@ const posts = (await getCollection('blog'))
 	<p>{author.data.description}</p>
 	<h2>{author.data.name} の記事一覧</h2>
 	<section>
-		<ul>
-			{
-				posts.map((post) => (
-					<li>
-						<FormattedDate date={post.data.pubDate} />
-						<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-					</li>
-				))
-			}
-		</ul>
+		{
+			posts.map((post) => (
+				<ArticleCard {...post} />
+			))
+		}
 	</section>
 </BaseLayout>

@@ -4,14 +4,28 @@ import { SITE_TITLE } from '../consts';
 ---
 
 <header>
-	<h2 class="text-2xl font-bold mb-2">
-		{SITE_TITLE}
-	</h2>
-	<nav class="mb-2 flex gap-2">
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
+	<nav class="text-2xl font-bold bg-white border-gray-200 dark:bg-gray-900">
+		<div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+			<a href="/" class="flex items-center">
+				{SITE_TITLE}
+			</a>
+		</div>
+	</nav>
+	<nav class="bg-gray-50 dark:bg-gray-700">
+		<div class="max-w-screen-xl px-4 py-3 mx-auto">
+			<div class="flex items-center">
+				<ul class="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
+					<li>
+						<HeaderLink href="/">Home</HeaderLink>
+					</li>
+					<li>
+						<HeaderLink href="/blog">Blog</HeaderLink>
+					</li>
+					<li>
+						<HeaderLink href="/about">About</HeaderLink>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</nav>
 </header>
