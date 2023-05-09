@@ -1,9 +1,10 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-
-import markdownToHtml from "zenn-markdown-html";
 import 'zenn-content-css';
+import lib from "zenn-markdown-html";
+type MarkdownToHtmlAtBuild = { default: (text: string, options?: any) => string }
+const markdownToHtml = typeof lib !== 'function' ? (lib as MarkdownToHtmlAtBuild).default : lib;
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
