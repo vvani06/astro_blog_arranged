@@ -9,10 +9,11 @@ import Footer from '../components/Footer.astro';
 <html lang="ja">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script is:inline src="https://embed.zenn.studio/js/listen-embed-event.js"></script>
 	</head>
 	<body>
 		<Header />
-    <main class="max-w-screen-lg m-2 space-y-4">
+    <main class="max-w-screen-md m-2 space-y-4">
       <slot />
     </main>
 		<Footer />
